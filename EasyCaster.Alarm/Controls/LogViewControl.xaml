@@ -1,0 +1,73 @@
+﻿<UserControl
+    x:Class="EasyCaster.Alarm.Controls.LogViewControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:e="clr-namespace:EasyCaster.Alarm.Extensions"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    x:Name="UserControl"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d">
+    <UserControl.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Height" Value="22" />
+            <Setter Property="Padding" Value="5,0,5,0" />
+        </Style>
+        <DataTemplate x:Key="listBoxTemplate">
+            <TextBlock
+                FontFamily="Consolas"
+                FontSize="14"
+                Foreground="{Binding LogLevelColor}"
+                Text="{Binding LogString}" />
+        </DataTemplate>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <StackPanel
+            Margin="5,5,0,5"
+            VerticalAlignment="Center"
+            Orientation="Horizontal">
+            <TextBlock VerticalAlignment="Center" Text="{e:Translate LogLevel}" />
+            <ComboBox
+                x:Name="LogLevelComboBox"
+                MinWidth="200"
+                Margin="5,0,0,0"
+                VerticalAlignment="Center"
+                DisplayMemberPath="LevelName"
+                ItemsSource="{Binding LogLevels, ElementName=UserControl}"
+                SelectedIndex="0"
+                SelectionChanged="LogLevelComboBox_SelectionChanged" />
+        </StackPanel>
+        <Button
+            x:Name="ClearButton"
+            Grid.Column="2"
+            Margin="0,5,5,5"
+            VerticalAlignment="Center"
+            Click="ClearButton_Click"
+            Content="{e:Translate Clear}" />
+        <ListView
+            x:Name="LogListBox"
+            Grid.Row="1"
+            Grid.ColumnSpan="2"
+            Margin="5,0,5,5"
+            Background="Black"
+            ItemTemplate="{StaticResource listBoxTemplate}"
+            ItemsSource="{Binding LogRecords, ElementName=UserControl}"
+            SelectionMode="Single">
+            <ListView.ItemContainerStyle>
+                <Style TargetType="{x:Type ListViewItem}">
+                    <Setter Property="Focusable" Value="False" />
+                    <Setter Property="IsHitTestVisible" Value="False" />
+                </Style>
+            </ListView.ItemContainerStyle>
+        </ListView>
+    </Grid>
+</UserControl>

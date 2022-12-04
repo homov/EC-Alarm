@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Cancel" xml:space="preserve">
+    <value>СКАСУВАТИ</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>ДОДАТИ</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>ВИЛУЧИТИ</value>
+  </data>
+  <data name="Start" xml:space="preserve">
+    <value>СТАРТ</value>
+  </data>
+  <data name="Stop" xml:space="preserve">
+    <value>СТОП</value>
+  </data>
+  <data name="Test" xml:space="preserve">
+    <value>ТЕСТ</value>
+  </data>
+  <data name="Task" xml:space="preserve">
+    <value>Завдання</value>
+  </data>
+  <data name="StartMessage" xml:space="preserve">
+    <value>Почати, якщо отримано</value>
+  </data>
+  <data name="StopMessage" xml:space="preserve">
+    <value>Зупинити, якщо отримано</value>
+  </data>
+  <data name="ExecuteEvery" xml:space="preserve">
+    <value>Повторювати кожні (c)</value>
+  </data>
+  <data name="Activate" xml:space="preserve">
+    <value>Активувати</value>
+  </data>
+  <data name="PressKey" xml:space="preserve">
+    <value>Натиснути клавішу</value>
+  </data>
+  <data name="Execute" xml:space="preserve">
+    <value>Виконати</value>
+  </data>
+  <data name="MessageNumber" xml:space="preserve">
+    <value>Повідомлення №</value>
+  </data>
+  <data name="FindText" xml:space="preserve">
+    <value>Знайти текст</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>РЕДАГУВАТИ</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>ЗБЕРЕГТИ</value>
+  </data>
+  <data name="ExcludeMessages" xml:space="preserve">
+    <value>Виключити повідомлення, що містять</value>
+  </data>
+  <data name="MessagesAndActions" xml:space="preserve">
+    <value>Пошук повідомлень</value>
+  </data>
+  <data name="ScheduleActions" xml:space="preserve">
+    <value>Розклад</value>
+  </data>
+  <data name="OtherSettings" xml:space="preserve">
+    <value>Інші налаштування</value>
+  </data>
+  <data name="SaveMessagesTo" xml:space="preserve">
+    <value>Зберегти повідомлення в (шлях)</value>
+  </data>
+  <data name="CallWebHook" xml:space="preserve">
+    <value>Виконати запит (url)</value>
+  </data>
+  <data name="PrimaryСhannel" xml:space="preserve">
+    <value>Канал для пошуку</value>
+  </data>
+  <data name="TestChannel" xml:space="preserve">
+    <value>Канал для тестів</value>
+  </data>
+  <data name="TelegramChannels" xml:space="preserve">
+    <value>Канали Telegram</value>
+  </data>
+  <data name="AutomaticConnect" xml:space="preserve">
+    <value>Автоматичне підключення до Telegram</value>
+  </data>
+  <data name="ApplicationSettings" xml:space="preserve">
+    <value>Налаштування програми</value>
+  </data>
+  <data name="StartApplication" xml:space="preserve">
+    <value>Запуск програми під час запуску Windows</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Пароль</value>
+  </data>
+  <data name="PhoneNumber" xml:space="preserve">
+    <value>Телефонний номер</value>
+  </data>
+  <data name="TelegramAccount" xml:space="preserve">
+    <value>Налаштування облікового запису Telegram</value>
+  </data>
+  <data name="PleaseEnterPhone" xml:space="preserve">
+    <value>Будь ласка, введіть номер телефону</value>
+  </data>
+  <data name="WarningsFound" xml:space="preserve">
+    <value>Було знайдено такі попередження:</value>
+  </data>
+  <data name="NoTelegramChannels" xml:space="preserve">
+    <value>- телеграм канали не вказані</value>
+  </data>
+  <data name="NoPrimaryTelegramChannel" xml:space="preserve">
+    <value>- не вказано основний телеграм-канал</value>
+  </data>
+  <data name="NoNessagesToProcess" xml:space="preserve">
+    <value>- немає повідомлень для обробки</value>
+  </data>
+  <data name="ScheduleWillNotWork" xml:space="preserve">
+    <value>- так як повідомлення не вказані, розклад працювати не буде</value>
+  </data>
+  <data name="SaveConfiguration" xml:space="preserve">
+    <value>Зберегти цю конфігурацію?</value>
+  </data>
+  <data name="Warning" xml:space="preserve">
+    <value>Застереження</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Помилка</value>
+  </data>
+  <data name="PressSAVEorCANCEL" xml:space="preserve">
+    <value>Натисніть ЗБЕРЕГТИ або СКАСУВАТИ, щоб завершити редагування</value>
+  </data>
+  <data name="PressEDIT" xml:space="preserve">
+    <value>Натисніть РЕДАГУВАТИ, щоб змінити конфігурацію</value>
+  </data>
+  <data name="SelectFolder" xml:space="preserve">
+    <value>Виберіть папку</value>
+  </data>
+  <data name="SelectExecutableFile" xml:space="preserve">
+    <value>Виберіть файл</value>
+  </data>
+  <data name="Files" xml:space="preserve">
+    <value>Файли (*.exe;*.cmd;*.bat;*.com)|*.exe;*.cmd;*.bat;*.com"</value>
+  </data>
+  <data name="TestError" xml:space="preserve">
+    <value>Помилка виконання</value>
+  </data>
+  <data name="SavingConfigurationError" xml:space="preserve">
+    <value>Помилка збереження конфігурації ({0})</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Налаштування</value>
+  </data>
+  <data name="MessageHistory" xml:space="preserve">
+    <value>Історія повідомлень</value>
+  </data>
+  <data name="ApplicationLog" xml:space="preserve">
+    <value>Журнал роботи</value>
+  </data>
+  <data name="Clear" xml:space="preserve">
+    <value>ОЧИСТИТИ</value>
+  </data>
+  <data name="LogLevel" xml:space="preserve">
+    <value>Рівень журналу:</value>
+  </data>
+  <data name="Information" xml:space="preserve">
+    <value>Інформація</value>
+  </data>
+  <data name="Debug" xml:space="preserve">
+    <value>Відлагоджування</value>
+  </data>
+  <data name="Trace" xml:space="preserve">
+    <value>Детально</value>
+  </data>
+  <data name="ProcessList" xml:space="preserve">
+    <value>Список процесів:</value>
+  </data>
+  <data name="SelectProcess" xml:space="preserve">
+    <value>Виберіть застосунок</value>
+  </data>
+  <data name="EnterEmailVerificationCode" xml:space="preserve">
+    <value>Введіть код підтвердження електронної пошти:</value>
+  </data>
+  <data name="EnterPhoneNumber" xml:space="preserve">
+    <value>Введіть номер телефону:</value>
+  </data>
+  <data name="EnterPassword" xml:space="preserve">
+    <value>Введіть пароль:</value>
+  </data>
+  <data name="EnterVerificationCode" xml:space="preserve">
+    <value>Введіть код підтвердження:</value>
+  </data>
+  <data name="InvalidValue" xml:space="preserve">
+    <value>Недійсне значення</value>
+  </data>
+  <data name="EnterRequiredValue" xml:space="preserve">
+    <value>Введіть необхідне значення</value>
+  </data>
+  <data name="TelegramLogin" xml:space="preserve">
+    <value>Вхід в Telegram</value>
+  </data>
+  <data name="TelegramConnectionState" xml:space="preserve">
+    <value>Стан підключення до Telegram - </value>
+  </data>
+  <data name="Connected" xml:space="preserve">
+    <value>підключений</value>
+  </data>
+  <data name="Connecting" xml:space="preserve">
+    <value>підключення...</value>
+  </data>
+  <data name="Disconnected" xml:space="preserve">
+    <value>відключений</value>
+  </data>
+</root>

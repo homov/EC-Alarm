@@ -1,0 +1,402 @@
+﻿<UserControl
+    x:Class="EasyCaster.Alarm.Views.SettingsView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:c="clr-namespace:EasyCaster.Alarm.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:e="clr-namespace:EasyCaster.Alarm.Extensions"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    x:Name="UserControl"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Templates/SettingsViewTemplates.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+            <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+            <Style TargetType="TextBlock">
+                <Setter Property="VerticalAlignment" Value="Center" />
+            </Style>
+            <Style TargetType="TextBox">
+                <Setter Property="VerticalContentAlignment" Value="Center" />
+                <Setter Property="FontWeight" Value="Bold" />
+            </Style>
+            <Style TargetType="ComboBox">
+                <Setter Property="FontWeight" Value="Bold" />
+            </Style>
+            <Style TargetType="CheckBox">
+                <Setter Property="VerticalAlignment" Value="Center" />
+            </Style>
+            <Style TargetType="Button">
+                <Setter Property="Padding" Value="5,0,5,0" />
+                <Setter Property="Height" Value="22" />
+            </Style>
+            <Style TargetType="{x:Type ListViewItem}">
+                <Setter Property="Background" Value="Transparent" />
+                <Setter Property="BorderBrush" Value="Transparent" />
+                <Setter Property="BorderThickness" Value="0" />
+                <Setter Property="Padding" Value="0" />
+                <Setter Property="Margin" Value="0" />
+                <Setter Property="IsHitTestVisible" Value="True" />
+                <Setter Property="Focusable" Value="False" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type ListViewItem}">
+                            <Grid Background="{TemplateBinding Background}">
+                                <Border Name="Selection" Visibility="Collapsed" />
+                                <ContentPresenter />
+                            </Grid>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="1" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+        <TextBlock
+            Margin="5,0,0,0"
+            VerticalAlignment="Center"
+            Text="{Binding HelpText}" />
+        <Button
+            Grid.Column="1"
+            Margin="0,5,5,5"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Center"
+            Command="{Binding EditCommand}"
+            Content="{e:Translate Edit}"
+            Visibility="{Binding IsNotEditing, Converter={StaticResource BooleanToVisibilityConverter}}" />
+
+        <StackPanel
+            Grid.Column="1"
+            Margin="0,5,5,5"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Center"
+            Orientation="Horizontal"
+            Visibility="{Binding IsEditing, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <Button
+                Margin="0,0,5,0"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center"
+                Command="{Binding SaveCommand}"
+                Content="{e:Translate Save}" />
+            <Button
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center"
+                Command="{Binding CancelCommand}"
+                Content="{e:Translate Cancel}" />
+        </StackPanel>
+
+        <Border
+            Grid.Row="1"
+            Grid.ColumnSpan="2"
+            Height="1"
+            Margin="-1,0,-1,0"
+            HorizontalAlignment="Stretch"
+            Background="LightGray" />
+
+        <ScrollViewer
+            Grid.Row="2"
+            Grid.ColumnSpan="2"
+            VerticalScrollBarVisibility="Auto">
+            <StackPanel
+                Margin="5,5,5,5"
+                HorizontalAlignment="Stretch"
+                Orientation="Vertical">
+
+                <Grid IsEnabled="{Binding IsEditing}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*" />
+                        <ColumnDefinition Width="1*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <GroupBox Margin="0,0,5,0" Padding="5">
+                        <GroupBox.Header>
+                            <TextBlock FontWeight="Bold" Text="{e:Translate TelegramAccount}" />
+                        </GroupBox.Header>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="24" />
+                                <RowDefinition Height="5" />
+                                <RowDefinition Height="24" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+
+                            <TextBlock Grid.Column="0" Text="{e:Translate PhoneNumber}" />
+                            <TextBox
+                                Grid.Column="1"
+                                Margin="5,0,0,0"
+                                Text="{Binding Phone}" />
+
+                            <TextBlock
+                                Grid.Row="2"
+                                Grid.Column="0"
+                                Text="{e:Translate Password}" />
+                            <TextBox
+                                Grid.Row="2"
+                                Grid.Column="1"
+                                Margin="5,0,0,0"
+                                Text="{Binding Password}" />
+                        </Grid>
+                    </GroupBox>
+                    <GroupBox
+                        Grid.Column="1"
+                        Margin="0"
+                        Padding="5">
+                        <GroupBox.Header>
+                            <TextBlock FontWeight="Bold" Text="{e:Translate ApplicationSettings}" />
+                        </GroupBox.Header>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" MinWidth="90" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="24" />
+                                <RowDefinition Height="5" />
+                                <RowDefinition Height="24" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+
+                            <CheckBox Grid.ColumnSpan="2" IsChecked="{Binding AutoStart}">
+                                <TextBlock Text="{e:Translate StartApplication}" />
+                            </CheckBox>
+                            <CheckBox
+                                Grid.Row="2"
+                                Grid.ColumnSpan="2"
+                                IsChecked="{Binding AutoConnect}">
+                                <TextBlock Text="{e:Translate AutomaticConnect}" />
+                            </CheckBox>
+                        </Grid>
+                    </GroupBox>
+                </Grid>
+
+                <GroupBox
+                    Margin="0,5,0,0"
+                    Padding="5"
+                    IsEnabled="{Binding IsEditing}">
+                    <GroupBox.Header>
+                        <TextBlock FontWeight="Bold" Text="{e:Translate TelegramChannels}" />
+                    </GroupBox.Header>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="20" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="24" />
+                        </Grid.RowDefinitions>
+                        <TextBlock
+                            Grid.Column="0"
+                            Margin="0,0,10,0"
+                            Text="{e:Translate PrimaryСhannel}" />
+                        <TextBox Grid.Column="1" Text="{Binding PrimaryChannel}" />
+                        <TextBlock
+                            Grid.Column="3"
+                            Margin="0,0,10,0"
+                            HorizontalAlignment="Left"
+                            Text="{e:Translate TestChannel}" />
+                        <TextBox Grid.Column="4" Text="{Binding TestChannel}" />
+                    </Grid>
+                </GroupBox>
+
+                <GroupBox Margin="0,5,0,0" Padding="5">
+                    <GroupBox.Header>
+                        <TextBlock FontWeight="Bold" Text="{e:Translate MessagesAndActions}" />
+                    </GroupBox.Header>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Button
+                            Grid.Row="1"
+                            Margin="1,0,0,0"
+                            HorizontalAlignment="Left"
+                            Command="{Binding AddEventCommand}"
+                            Content="{e:Translate Add}"
+                            IsEnabled="{Binding IsEditing}" />
+                        <ListView
+                            Margin="0"
+                            Padding="0"
+                            HorizontalAlignment="Stretch"
+                            HorizontalContentAlignment="Stretch"
+                            BorderThickness="0"
+                            ItemTemplate="{StaticResource EventTemplate}"
+                            ItemsSource="{Binding Events}"
+                            SelectionMode="Single">
+                            <ListView.Resources>
+                                <Style TargetType="ScrollViewer">
+                                    <Setter Property="HorizontalScrollBarVisibility" Value="Disabled" />
+                                    <Setter Property="VerticalScrollBarVisibility" Value="Disabled" />
+                                </Style>
+                            </ListView.Resources>
+                        </ListView>
+                    </Grid>
+                </GroupBox>
+
+                <GroupBox
+                    Margin="0,5,0,0"
+                    Padding="5"
+                    IsEnabled="{Binding IsEditing}">
+                    <GroupBox.Header>
+                        <TextBlock FontWeight="Bold" Text="{e:Translate ExcludeMessages}" />
+                    </GroupBox.Header>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Button
+                            Grid.Row="1"
+                            Margin="0,0,1,0"
+                            HorizontalAlignment="Left"
+                            Command="{Binding AddExludedTextCommand}"
+                            Content="{e:Translate Add}" />
+                        <ListView
+                            Margin="0,0,0,0"
+                            Padding="0"
+                            HorizontalAlignment="Stretch"
+                            HorizontalContentAlignment="Stretch"
+                            BorderThickness="0"
+                            ItemsSource="{Binding ExcludedText}"
+                            SelectionMode="Single">
+                            <ListView.Resources>
+                                <Style TargetType="ScrollViewer">
+                                    <Setter Property="HorizontalScrollBarVisibility" Value="Disabled" />
+                                    <Setter Property="VerticalScrollBarVisibility" Value="Disabled" />
+                                </Style>
+                            </ListView.Resources>
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid Margin="0,0,0,5">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="24" />
+                                        </Grid.RowDefinitions>
+                                        <TextBox
+                                            Focusable="True"
+                                            IsTabStop="True"
+                                            Text="{Binding Value, Mode=TwoWay}" />
+                                        <Button
+                                            Grid.Column="1"
+                                            Margin="10,0,0,0"
+                                            Command="{Binding Path=DataContext.DelExludedTextCommand, ElementName=UserControl}"
+                                            CommandParameter="{Binding Index, Mode=OneWay}"
+                                            Content="{e:Translate Delete}" />
+                                    </Grid>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </Grid>
+                </GroupBox>
+
+                <GroupBox Margin="0,5,0,0" Padding="5">
+                    <GroupBox.Header>
+                        <TextBlock FontWeight="Bold" Text="{e:Translate ScheduleActions}" />
+                    </GroupBox.Header>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Button
+                            Grid.Row="1"
+                            Margin="1,0,0,0"
+                            HorizontalAlignment="Left"
+                            Command="{Binding AddTaskCommand}"
+                            Content="{e:Translate Add}"
+                            IsEnabled="{Binding IsEditing}" />
+                        <ListView
+                            Margin="0"
+                            Padding="0"
+                            HorizontalAlignment="Stretch"
+                            HorizontalContentAlignment="Stretch"
+                            Background="Transparent"
+                            BorderThickness="0"
+                            ItemTemplate="{StaticResource TaskTemplate}"
+                            ItemsSource="{Binding Tasks}"
+                            SelectionMode="Single">
+                            <ListView.Resources>
+                                <Style TargetType="ScrollViewer">
+                                    <Setter Property="HorizontalScrollBarVisibility" Value="Disabled" />
+                                    <Setter Property="VerticalScrollBarVisibility" Value="Disabled" />
+                                </Style>
+                            </ListView.Resources>
+                        </ListView>
+                    </Grid>
+                </GroupBox>
+
+                <GroupBox
+                    Margin="0,5,0,0"
+                    Padding="5"
+                    IsEnabled="{Binding IsEditing}">
+                    <GroupBox.Header>
+                        <TextBlock FontWeight="Bold" Text="{e:Translate OtherSettings}" />
+                    </GroupBox.Header>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="24" />
+                            <RowDefinition Height="5" />
+                            <RowDefinition Height="24" />
+                        </Grid.RowDefinitions>
+
+                        <TextBlock HorizontalAlignment="Stretch" Text="{e:Translate SaveMessagesTo}" />
+                        <TextBox
+                            Grid.Column="1"
+                            Margin="10,0,0,0"
+                            Text="{Binding SaveMessagesPath}" />
+                        <Button
+                            Grid.Column="2"
+                            MinWidth="30"
+                            Margin="5,0,0,0"
+                            Command="{Binding SelectSaveMessagesPathCommand}"
+                            Content="..." />
+
+                        <TextBlock
+                            Grid.Row="2"
+                            HorizontalAlignment="Stretch"
+                            Text="{e:Translate CallWebHook}" />
+                        <TextBox
+                            Grid.Row="2"
+                            Grid.Column="1"
+                            Grid.ColumnSpan="2"
+                            Margin="10,0,0,0"
+                            Text="{Binding WebHookUrl}" />
+
+                    </Grid>
+                </GroupBox>
+
+            </StackPanel>
+        </ScrollViewer>
+
+    </Grid>
+</UserControl>

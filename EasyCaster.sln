@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33110.190
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EasyCaster.Alarm.Core", "EasyCaster.Alarm.Core\EasyCaster.Alarm.Core.csproj", "{3F7E1CAF-1AE1-4E00-97F3-AEA676EC9EEB}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EasyCaster.Alarm", "EasyCaster.Alarm\EasyCaster.Alarm.csproj", "{B7DE19A0-9486-40EE-BBDF-9B3F00367F2B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Dist", "Dist", "{1060471B-E885-4BCA-9BC3-1DAAE707FD7A}"
+	ProjectSection(SolutionItems) = preProject
+		Dist\build.cmd = Dist\build.cmd
+		Dist\EasyCaster.Alarm.Setup.iss = Dist\EasyCaster.Alarm.Setup.iss
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3F7E1CAF-1AE1-4E00-97F3-AEA676EC9EEB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3F7E1CAF-1AE1-4E00-97F3-AEA676EC9EEB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3F7E1CAF-1AE1-4E00-97F3-AEA676EC9EEB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3F7E1CAF-1AE1-4E00-97F3-AEA676EC9EEB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B7DE19A0-9486-40EE-BBDF-9B3F00367F2B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B7DE19A0-9486-40EE-BBDF-9B3F00367F2B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B7DE19A0-9486-40EE-BBDF-9B3F00367F2B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B7DE19A0-9486-40EE-BBDF-9B3F00367F2B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C53866B7-1A17-47AE-9641-E958B3471F45}
+	EndGlobalSection
+EndGlobal
