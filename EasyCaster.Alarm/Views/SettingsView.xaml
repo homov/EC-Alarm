@@ -185,7 +185,10 @@
                                 <RowDefinition Height="*" />
                             </Grid.RowDefinitions>
 
-                            <TextBlock Grid.Column="0" Text="{e:Translate PhoneNumber}" />
+                            <TextBlock
+                                x:Name="PhoneNumberTextBox"
+                                Grid.Column="0"
+                                Text="{e:Translate PhoneNumber}" />
                             <TextBox
                                 Grid.Column="1"
                                 Margin="5,0,0,0"

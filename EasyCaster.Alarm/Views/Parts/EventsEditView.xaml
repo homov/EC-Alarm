@@ -67,7 +67,7 @@
                             <ColumnDefinition Width="5" />
                             <ColumnDefinition Width="1*" />
                             <ColumnDefinition Width="5" />
-                            <ColumnDefinition Width="44" />
+                            <ColumnDefinition Width="46" />
                         </Grid.ColumnDefinitions>
                         <TextBlock
                             Grid.Column="0"
@@ -120,19 +120,17 @@
 
                             <Button
                                 Margin="0,0,2,0"
-                                Padding="0"
+                                Padding="6,0,6,0"
                                 HorizontalContentAlignment="Center"
                                 VerticalContentAlignment="Center"
-                                Background="Transparent"
-                                BorderThickness="0"
                                 Command="{Binding Path=DataContext.TestEventCommand, ElementName=UserControl}"
                                 CommandParameter="{Binding .}"
                                 ToolTip="{e:Translate Test}">
-                                <mi:MaterialIcon
-                                    Width="22"
-                                    Height="22"
+                                <TextBlock
+                                    FontWeight="Bold"
                                     Foreground="Green"
-                                    Kind="AlphaTBoxOutline" />
+                                    Text="T" />
+
                             </Button>
 
                             <Button

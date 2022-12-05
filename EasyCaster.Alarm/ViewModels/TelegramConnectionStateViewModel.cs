@@ -113,7 +113,7 @@ public partial class TelegramConnectionStateViewModel : ObservableObject
                 var configuration = ConfigurationService.Instance.Configuration;
                 configuration.Phone = dialog.ViewModel.Phone;
                 configuration.Password = dialog.ViewModel.Password;
-                //ConfigurationService.Instance.UpdateConfiguration(configuration);
+                ConfigurationService.Instance.UpdateConfiguration(configuration);
             }
             messageReader.Start();
         }
