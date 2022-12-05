@@ -19,6 +19,7 @@
         <ListView
             Margin="0,5,0,0"
             Padding="0"
+            Background="Transparent"
             BorderThickness="0"
             ItemsSource="{Binding ExcludedText}"
             SelectionMode="Single">
@@ -33,7 +34,11 @@
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
-                        <TextBox Grid.Column="0" Text="{Binding Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        <Border x:Name="b1" Grid.Column="0" />
+                        <TextBox
+                            Grid.Column="0"
+                            MaxWidth="{Binding ActualWidth, ElementName=b1}"
+                            Text="{Binding Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                         <Button
                             Grid.Column="1"
                             Margin="5,0,0,0"
@@ -46,8 +51,8 @@
                             CommandParameter="{Binding Index, Mode=OneWay}"
                             ToolTip="{e:Translate Delete}">
                             <mi:MaterialIcon
-                                Width="22"
-                                Height="22"
+                                Width="18"
+                                Height="18"
                                 Foreground="LightCoral"
                                 Kind="CloseThick" />
                         </Button>

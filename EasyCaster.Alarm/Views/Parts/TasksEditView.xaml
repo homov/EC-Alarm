@@ -44,17 +44,36 @@
                 <ColumnDefinition Width="44" />
             </Grid.ColumnDefinitions>
 
-            <TextBlock Grid.Column="0" Text="{e:Translate StartMessage}" />
-            <TextBlock Grid.Column="2" Text="{e:Translate StopMessage}" />
-            <TextBlock Grid.Column="4" Text="{e:Translate ExecuteEvery}" />
-            <TextBlock Grid.Column="6" Text="{e:Translate Activate}" />
-            <TextBlock Grid.Column="8" Text="{e:Translate PressKey}" />
-            <TextBlock Grid.Column="10" Text="{e:Translate Execute}" />
+            <TextBlock
+                x:Name="t1"
+                Grid.Column="0"
+                Text="{e:Translate StartMessage}" />
+            <TextBlock
+                x:Name="t2"
+                Grid.Column="2"
+                Text="{e:Translate StopMessage}" />
+            <TextBlock
+                x:Name="t3"
+                Grid.Column="4"
+                Text="{e:Translate ExecuteEvery}" />
+            <TextBlock
+                x:Name="t4"
+                Grid.Column="6"
+                Text="{e:Translate Activate}" />
+            <TextBlock
+                x:Name="t5"
+                Grid.Column="8"
+                Text="{e:Translate PressKey}" />
+            <TextBlock
+                x:Name="t6"
+                Grid.Column="10"
+                Text="{e:Translate Execute}" />
         </Grid>
 
         <ListView
             Grid.Row="1"
             Margin="0,5,0,0"
+            Background="Transparent"
             BorderThickness="0"
             ItemsSource="{Binding Tasks}">
             <ListView.ItemTemplate>
@@ -65,7 +84,7 @@
                             <ColumnDefinition Width="5" />
                             <ColumnDefinition Width="52" />
                             <ColumnDefinition Width="5" />
-                            <ColumnDefinition Width="90" />
+                            <ColumnDefinition Width="94" />
                             <ColumnDefinition Width="5" />
                             <ColumnDefinition Width="1*" />
                             <ColumnDefinition Width="5" />
@@ -73,11 +92,12 @@
                             <ColumnDefinition Width="5" />
                             <ColumnDefinition Width="1*" />
                             <ColumnDefinition Width="5" />
-                            <ColumnDefinition Width="46" />
+                            <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
 
                         <ComboBox
                             Grid.Column="0"
+                            Width="{Binding ActualWidth, ElementName=t1}"
                             DisplayMemberPath="Id"
                             IsEnabled="{Binding Path=DataContext.IsEditing, ElementName=UserControl}"
                             ItemsSource="{Binding DataContext.Events, ElementName=UserControl}"
@@ -85,6 +105,7 @@
 
                         <ComboBox
                             Grid.Column="2"
+                            Width="{Binding ActualWidth, ElementName=t2}"
                             DisplayMemberPath="Id"
                             IsEnabled="{Binding Path=DataContext.IsEditing, ElementName=UserControl}"
                             ItemsSource="{Binding DataContext.Events, ElementName=UserControl}"
@@ -92,10 +113,12 @@
 
                         <TextBox
                             Grid.Column="4"
+                            Width="{Binding ActualWidth, ElementName=t3}"
                             IsEnabled="{Binding Path=DataContext.IsEditing, ElementName=UserControl}"
                             Text="{Binding DelayPeriod, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
-                        <Grid Grid.Column="6">
+
+                        <Grid Grid.Column="6" Width="{Binding ActualWidth, ElementName=t4}">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*" />
                                 <ColumnDefinition Width="Auto" />
@@ -111,10 +134,12 @@
                         </Grid>
                         <c:HotKeyEditorControl
                             Grid.Column="8"
+                            Width="{Binding ActualWidth, ElementName=t5}"
                             HotKey="{Binding Action.HotKey, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                             IsEnabled="{Binding Path=DataContext.IsEditing, ElementName=UserControl}" />
 
-                        <Grid Grid.Column="10">
+                        <Border x:Name="b2" Grid.Column="10" />
+                        <Grid Grid.Column="10" MaxWidth="{Binding ActualWidth, ElementName=t6}">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*" />
                                 <ColumnDefinition Width="Auto" />
@@ -162,8 +187,8 @@
                                 IsEnabled="{Binding Path=DataContext.IsEditing, ElementName=UserControl}"
                                 ToolTip="{e:Translate Delete}">
                                 <mi:MaterialIcon
-                                    Width="22"
-                                    Height="22"
+                                    Width="18"
+                                    Height="18"
                                     Foreground="LightCoral"
                                     Kind="CloseThick" />
                             </Button>

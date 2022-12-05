@@ -25,6 +25,11 @@ public class ScheduleHandler
         {
             while( !cancellationTokenSource.Token.IsCancellationRequested )
             {
+                await Task.Delay(
+                    TimeSpan.FromSeconds((int)easyCasterTask.DelayPeriod),
+                    cancellationTokenSource.Token
+                );
+
                 try
                 {
                     ActionInvoker.Invoke(easyCasterTask.Action);
@@ -37,11 +42,6 @@ public class ScheduleHandler
                 
                 if (cancellationTokenSource.Token.IsCancellationRequested)
                     break;
-
-                await Task.Delay( 
-                    TimeSpan.FromSeconds((int)easyCasterTask.DelayPeriod),
-                    cancellationTokenSource.Token
-                );
             }
         }
 

@@ -11,6 +11,7 @@
     Title="EasyCaster Alarm"
     MinWidth="800"
     MinHeight="600"
+    Background="{Binding Background, ElementName=TabControl}"
     Icon="/Resources/icon.ico"
     mc:Ignorable="d">
     <Window.Resources>
@@ -25,6 +26,7 @@
         <v:TelegramConnectionStateView Margin="10,10,10,0" Padding="10" />
 
         <TabControl
+            x:Name="TabControl"
             Grid.Row="1"
             Margin="10"
             HorizontalAlignment="Stretch"
