@@ -8,8 +8,8 @@
     <Version>2.0</Version>
     <Company>live-tv</Company>
     <Copyright>Copyright ©  2022</Copyright>
-    <AssemblyVersion>2.0.0.2</AssemblyVersion>
-    <FileVersion>2.0.0.2</FileVersion>
+    <AssemblyVersion>2.0.0.3</AssemblyVersion>
+    <FileVersion>2.0.0.3</FileVersion>
     <SignAssembly>false</SignAssembly>
     <AssemblyName>EasyCaster.Alarm</AssemblyName>
     <Authors>live-tv</Authors>
