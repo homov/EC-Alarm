@@ -60,7 +60,7 @@ public partial class ProcessSelectDialog : Window
 
         public override string ToString()
         {
-            return $"{Name} - {{{Title}}}";
+            return Title;
         }
     }
 }

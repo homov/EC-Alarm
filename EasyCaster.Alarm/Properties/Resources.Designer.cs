@@ -133,6 +133,60 @@ namespace EasyCaster.Alarm.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Confirm.
+        /// </summary>
+        internal static string Confirm {
+            get {
+                return ResourceManager.GetString("Confirm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you want to exit the application?.
+        /// </summary>
+        internal static string ConfirmCloseApplication {
+            get {
+                return ResourceManager.GetString("ConfirmCloseApplication", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you want to remove the exception?.
+        /// </summary>
+        internal static string ConfirmDeleteExclusion {
+            get {
+                return ResourceManager.GetString("ConfirmDeleteExclusion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you want to delete a message?.
+        /// </summary>
+        internal static string ConfirmDeleteMessage {
+            get {
+                return ResourceManager.GetString("ConfirmDeleteMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you want to delete the schedule?.
+        /// </summary>
+        internal static string ConfirmDeleteTask {
+            get {
+                return ResourceManager.GetString("ConfirmDeleteTask", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you want to stop message processing?.
+        /// </summary>
+        internal static string ConfirmStopWork {
+            get {
+                return ResourceManager.GetString("ConfirmStopWork", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to connected.
         /// </summary>
         internal static string Connected {
@@ -259,7 +313,7 @@ namespace EasyCaster.Alarm.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Execute every.
+        ///   Looks up a localized string similar to Repeea (s).
         /// </summary>
         internal static string ExecuteEvery {
             get {
@@ -340,6 +394,15 @@ namespace EasyCaster.Alarm.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Warning! New message!.
+        /// </summary>
+        internal static string NewMessageWarning {
+            get {
+                return ResourceManager.GetString("NewMessageWarning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to - there are no messages to process.
         /// </summary>
         internal static string NoNessagesToProcess {
@@ -385,6 +448,51 @@ namespace EasyCaster.Alarm.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Password (if required).
+        /// </summary>
+        internal static string PasswordIfExissts {
+            get {
+                return ResourceManager.GetString("PasswordIfExissts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You have entered an invalid code.
+        /// </summary>
+        internal static string PHONE_CODE_INVALID {
+            get {
+                return ResourceManager.GetString("PHONE_CODE_INVALID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Phone number banned.
+        /// </summary>
+        internal static string PHONE_NUMBER_BANNED {
+            get {
+                return ResourceManager.GetString("PHONE_NUMBER_BANNED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sorry, you have deleted and re-created your account too many times recently. Please wait for a few days before signing up again.
+        /// </summary>
+        internal static string PHONE_NUMBER_FLOOD {
+            get {
+                return ResourceManager.GetString("PHONE_NUMBER_FLOOD", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid phone number. Please try again.
+        /// </summary>
+        internal static string PHONE_NUMBER_INVALID {
+            get {
+                return ResourceManager.GetString("PHONE_NUMBER_INVALID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Phone number.
         /// </summary>
         internal static string PhoneNumber {
@@ -426,6 +534,15 @@ namespace EasyCaster.Alarm.Properties {
         internal static string PressSAVEorCANCEL {
             get {
                 return ResourceManager.GetString("PressSAVEorCANCEL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Primary channel description.
+        /// </summary>
+        internal static string PrimaryChannelDescription {
+            get {
+                return ResourceManager.GetString("PrimaryChannelDescription", resourceCulture);
             }
         }
         
@@ -556,7 +673,7 @@ namespace EasyCaster.Alarm.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Start message.
+        ///   Looks up a localized string similar to Start.
         /// </summary>
         internal static string StartMessage {
             get {
@@ -574,7 +691,7 @@ namespace EasyCaster.Alarm.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Stop message.
+        ///   Looks up a localized string similar to Stop.
         /// </summary>
         internal static string StopMessage {
             get {
@@ -597,6 +714,15 @@ namespace EasyCaster.Alarm.Properties {
         internal static string TelegramAccount {
             get {
                 return ResourceManager.GetString("TelegramAccount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Telegram account setup.
+        /// </summary>
+        internal static string TelegramAccountSetup {
+            get {
+                return ResourceManager.GetString("TelegramAccountSetup", resourceCulture);
             }
         }
         
@@ -642,6 +768,15 @@ namespace EasyCaster.Alarm.Properties {
         internal static string TestChannel {
             get {
                 return ResourceManager.GetString("TestChannel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Test channel description.
+        /// </summary>
+        internal static string TestChannelDescription {
+            get {
+                return ResourceManager.GetString("TestChannelDescription", resourceCulture);
             }
         }
         

@@ -6,16 +6,14 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:e="clr-namespace:EasyCaster.Alarm.Extensions"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:mi="clr-namespace:Material.Icons.WPF;assembly=Material.Icons.WPF"
+    xmlns:p="clr-namespace:EasyCaster.Alarm.Views.Parts"
     x:Name="UserControl"
     d:DesignHeight="450"
     d:DesignWidth="800"
     mc:Ignorable="d">
     <UserControl.Resources>
         <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="Templates/SettingsViewTemplates.xaml" />
-            </ResourceDictionary.MergedDictionaries>
-
             <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
             <Style TargetType="TextBlock">
                 <Setter Property="VerticalAlignment" Value="Center" />
@@ -23,12 +21,6 @@
             <Style TargetType="TextBox">
                 <Setter Property="VerticalContentAlignment" Value="Center" />
                 <Setter Property="FontWeight" Value="Bold" />
-            </Style>
-            <Style TargetType="ComboBox">
-                <Setter Property="FontWeight" Value="Bold" />
-            </Style>
-            <Style TargetType="CheckBox">
-                <Setter Property="VerticalAlignment" Value="Center" />
             </Style>
             <Style TargetType="Button">
                 <Setter Property="Padding" Value="5,0,5,0" />
@@ -53,6 +45,54 @@
                     </Setter.Value>
                 </Setter>
             </Style>
+
+            <Style x:Key="AnimatedVisibleButton" TargetType="{x:Type Button}">
+                <Setter Property="Background" Value="#FFFFDC03" />
+                <Setter Property="BorderBrush" Value="#FFD6B656" />
+                <Setter Property="Padding" Value="10,0,10,0" />
+                <Setter Property="MinHeight" Value="22" />
+                <Style.Triggers>
+                    <Trigger Property="Visibility" Value="Visible">
+                        <Trigger.EnterActions>
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <DoubleAnimation
+                                        AutoReverse="True"
+                                        RepeatBehavior="Forever"
+                                        Storyboard.TargetProperty="(Button.Opacity)"
+                                        From="1"
+                                        To="0.5"
+                                        Duration="0:0:1" />
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </Trigger.EnterActions>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+
+            <Style x:Key="AnimatedEnabledButton" TargetType="{x:Type Button}">
+                <Setter Property="Background" Value="#FFFFDC03" />
+                <Setter Property="BorderBrush" Value="#FFD6B656" />
+                <Setter Property="Padding" Value="10,0,10,0" />
+                <Setter Property="MinHeight" Value="22" />
+                <Style.Triggers>
+                    <Trigger Property="IsEnabled" Value="True">
+                        <Trigger.EnterActions>
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <DoubleAnimation
+                                        AutoReverse="True"
+                                        RepeatBehavior="Forever"
+                                        Storyboard.TargetProperty="(Button.Opacity)"
+                                        From="1"
+                                        To="0.5"
+                                        Duration="0:0:1" />
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </Trigger.EnterActions>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
         </ResourceDictionary>
     </UserControl.Resources>
     <Grid>
@@ -70,13 +110,16 @@
             VerticalAlignment="Center"
             Text="{Binding HelpText}" />
         <Button
+            x:Name="EditButton"
             Grid.Column="1"
             Margin="0,5,5,5"
             HorizontalAlignment="Right"
             VerticalAlignment="Center"
             Command="{Binding EditCommand}"
             Content="{e:Translate Edit}"
+            Style="{StaticResource AnimatedVisibleButton}"
             Visibility="{Binding IsNotEditing, Converter={StaticResource BooleanToVisibilityConverter}}" />
+
 
         <StackPanel
             Grid.Column="1"
@@ -90,7 +133,9 @@
                 HorizontalAlignment="Right"
                 VerticalAlignment="Center"
                 Command="{Binding SaveCommand}"
-                Content="{e:Translate Save}" />
+                Content="{e:Translate Save}"
+                IsEnabled="{Binding IsModified}"
+                Style="{StaticResource AnimatedEnabledButton}" />
             <Button
                 HorizontalAlignment="Right"
                 VerticalAlignment="Center"
@@ -110,6 +155,7 @@
             Grid.Row="2"
             Grid.ColumnSpan="2"
             VerticalScrollBarVisibility="Auto">
+
             <StackPanel
                 Margin="5,5,5,5"
                 HorizontalAlignment="Stretch"
@@ -143,7 +189,7 @@
                             <TextBox
                                 Grid.Column="1"
                                 Margin="5,0,0,0"
-                                Text="{Binding Phone}" />
+                                Text="{Binding Phone, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
                             <TextBlock
                                 Grid.Row="2"
@@ -153,7 +199,7 @@
                                 Grid.Row="2"
                                 Grid.Column="1"
                                 Margin="5,0,0,0"
-                                Text="{Binding Password}" />
+                                Text="{Binding Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                         </Grid>
                     </GroupBox>
                     <GroupBox
@@ -175,13 +221,13 @@
                                 <RowDefinition Height="*" />
                             </Grid.RowDefinitions>
 
-                            <CheckBox Grid.ColumnSpan="2" IsChecked="{Binding AutoStart}">
+                            <CheckBox Grid.ColumnSpan="2" IsChecked="{Binding AutoStart, Mode=TwoWay}">
                                 <TextBlock Text="{e:Translate StartApplication}" />
                             </CheckBox>
                             <CheckBox
                                 Grid.Row="2"
                                 Grid.ColumnSpan="2"
-                                IsChecked="{Binding AutoConnect}">
+                                IsChecked="{Binding AutoConnect, Mode=TwoWay}">
                                 <TextBlock Text="{e:Translate AutomaticConnect}" />
                             </CheckBox>
                         </Grid>
@@ -195,64 +241,14 @@
                     <GroupBox.Header>
                         <TextBlock FontWeight="Bold" Text="{e:Translate TelegramChannels}" />
                     </GroupBox.Header>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="20" />
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="24" />
-                        </Grid.RowDefinitions>
-                        <TextBlock
-                            Grid.Column="0"
-                            Margin="0,0,10,0"
-                            Text="{e:Translate PrimaryСhannel}" />
-                        <TextBox Grid.Column="1" Text="{Binding PrimaryChannel}" />
-                        <TextBlock
-                            Grid.Column="3"
-                            Margin="0,0,10,0"
-                            HorizontalAlignment="Left"
-                            Text="{e:Translate TestChannel}" />
-                        <TextBox Grid.Column="4" Text="{Binding TestChannel}" />
-                    </Grid>
+                    <p:ChannelsEditView DataContext="{Binding DataContext, ElementName=UserControl}" />
                 </GroupBox>
 
                 <GroupBox Margin="0,5,0,0" Padding="5">
                     <GroupBox.Header>
                         <TextBlock FontWeight="Bold" Text="{e:Translate MessagesAndActions}" />
                     </GroupBox.Header>
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="*" />
-                            <RowDefinition Height="Auto" />
-                        </Grid.RowDefinitions>
-                        <Button
-                            Grid.Row="1"
-                            Margin="1,0,0,0"
-                            HorizontalAlignment="Left"
-                            Command="{Binding AddEventCommand}"
-                            Content="{e:Translate Add}"
-                            IsEnabled="{Binding IsEditing}" />
-                        <ListView
-                            Margin="0"
-                            Padding="0"
-                            HorizontalAlignment="Stretch"
-                            HorizontalContentAlignment="Stretch"
-                            BorderThickness="0"
-                            ItemTemplate="{StaticResource EventTemplate}"
-                            ItemsSource="{Binding Events}"
-                            SelectionMode="Single">
-                            <ListView.Resources>
-                                <Style TargetType="ScrollViewer">
-                                    <Setter Property="HorizontalScrollBarVisibility" Value="Disabled" />
-                                    <Setter Property="VerticalScrollBarVisibility" Value="Disabled" />
-                                </Style>
-                            </ListView.Resources>
-                        </ListView>
-                    </Grid>
+                    <p:EventsEditView DataContext="{Binding DataContext, ElementName=UserControl}" />
                 </GroupBox>
 
                 <GroupBox
@@ -262,92 +258,15 @@
                     <GroupBox.Header>
                         <TextBlock FontWeight="Bold" Text="{e:Translate ExcludeMessages}" />
                     </GroupBox.Header>
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="*" />
-                            <RowDefinition Height="Auto" />
-                        </Grid.RowDefinitions>
-                        <Button
-                            Grid.Row="1"
-                            Margin="0,0,1,0"
-                            HorizontalAlignment="Left"
-                            Command="{Binding AddExludedTextCommand}"
-                            Content="{e:Translate Add}" />
-                        <ListView
-                            Margin="0,0,0,0"
-                            Padding="0"
-                            HorizontalAlignment="Stretch"
-                            HorizontalContentAlignment="Stretch"
-                            BorderThickness="0"
-                            ItemsSource="{Binding ExcludedText}"
-                            SelectionMode="Single">
-                            <ListView.Resources>
-                                <Style TargetType="ScrollViewer">
-                                    <Setter Property="HorizontalScrollBarVisibility" Value="Disabled" />
-                                    <Setter Property="VerticalScrollBarVisibility" Value="Disabled" />
-                                </Style>
-                            </ListView.Resources>
-                            <ListView.ItemTemplate>
-                                <DataTemplate>
-                                    <Grid Margin="0,0,0,5">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="*" />
-                                            <ColumnDefinition Width="Auto" />
-                                        </Grid.ColumnDefinitions>
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="24" />
-                                        </Grid.RowDefinitions>
-                                        <TextBox
-                                            Focusable="True"
-                                            IsTabStop="True"
-                                            Text="{Binding Value, Mode=TwoWay}" />
-                                        <Button
-                                            Grid.Column="1"
-                                            Margin="10,0,0,0"
-                                            Command="{Binding Path=DataContext.DelExludedTextCommand, ElementName=UserControl}"
-                                            CommandParameter="{Binding Index, Mode=OneWay}"
-                                            Content="{e:Translate Delete}" />
-                                    </Grid>
-                                </DataTemplate>
-                            </ListView.ItemTemplate>
-                        </ListView>
-                    </Grid>
+                    <p:ExcludesEditView DataContext="{Binding DataContext, ElementName=UserControl}" />
+
                 </GroupBox>
 
                 <GroupBox Margin="0,5,0,0" Padding="5">
                     <GroupBox.Header>
                         <TextBlock FontWeight="Bold" Text="{e:Translate ScheduleActions}" />
                     </GroupBox.Header>
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="*" />
-                            <RowDefinition Height="Auto" />
-                        </Grid.RowDefinitions>
-                        <Button
-                            Grid.Row="1"
-                            Margin="1,0,0,0"
-                            HorizontalAlignment="Left"
-                            Command="{Binding AddTaskCommand}"
-                            Content="{e:Translate Add}"
-                            IsEnabled="{Binding IsEditing}" />
-                        <ListView
-                            Margin="0"
-                            Padding="0"
-                            HorizontalAlignment="Stretch"
-                            HorizontalContentAlignment="Stretch"
-                            Background="Transparent"
-                            BorderThickness="0"
-                            ItemTemplate="{StaticResource TaskTemplate}"
-                            ItemsSource="{Binding Tasks}"
-                            SelectionMode="Single">
-                            <ListView.Resources>
-                                <Style TargetType="ScrollViewer">
-                                    <Setter Property="HorizontalScrollBarVisibility" Value="Disabled" />
-                                    <Setter Property="VerticalScrollBarVisibility" Value="Disabled" />
-                                </Style>
-                            </ListView.Resources>
-                        </ListView>
-                    </Grid>
+                    <p:TasksEditView DataContext="{Binding DataContext, ElementName=UserControl}" />
                 </GroupBox>
 
                 <GroupBox
@@ -373,7 +292,7 @@
                         <TextBox
                             Grid.Column="1"
                             Margin="10,0,0,0"
-                            Text="{Binding SaveMessagesPath}" />
+                            Text="{Binding SaveMessagesPath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                         <Button
                             Grid.Column="2"
                             MinWidth="30"
@@ -390,7 +309,7 @@
                             Grid.Column="1"
                             Grid.ColumnSpan="2"
                             Margin="10,0,0,0"
-                            Text="{Binding WebHookUrl}" />
+                            Text="{Binding WebHookUrl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
                     </Grid>
                 </GroupBox>

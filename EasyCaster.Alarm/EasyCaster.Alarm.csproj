@@ -8,12 +8,13 @@
     <Version>2.0</Version>
     <Company>live-tv</Company>
     <Copyright>Copyright ©  2022</Copyright>
-    <AssemblyVersion>2.0.0.1</AssemblyVersion>
-    <FileVersion>2.0.0.1</FileVersion>
+    <AssemblyVersion>2.0.0.2</AssemblyVersion>
+    <FileVersion>2.0.0.2</FileVersion>
     <SignAssembly>false</SignAssembly>
     <AssemblyName>EasyCaster.Alarm</AssemblyName>
     <Authors>live-tv</Authors>
     <ApplicationIcon>Resources\icon.ico</ApplicationIcon>
+    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
   </PropertyGroup>
 
   <ItemGroup>
@@ -28,9 +29,6 @@
     <Compile Update="Controls\HotkeyEditorControl.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Controls\LogViewControl.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Update="Properties\Resources.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -41,6 +39,7 @@
   <ItemGroup>
     <PackageReference Include="Autofac" Version="6.5.0" />
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.0.0" />
+    <PackageReference Include="Material.Icons.WPF" Version="1.2.0" />
     <PackageReference Include="Ookii.Dialogs.Wpf" Version="5.0.1" />
     <PackageReference Include="Serilog.Sinks.File" Version="5.0.0" />
   </ItemGroup>

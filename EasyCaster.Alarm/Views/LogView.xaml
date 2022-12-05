@@ -1,11 +1,11 @@
 ﻿<UserControl
-    x:Class="EasyCaster.Alarm.Controls.LogViewControl"
+    x:Class="EasyCaster.Alarm.Views.LogView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:e="clr-namespace:EasyCaster.Alarm.Extensions"
+    xmlns:local="clr-namespace:EasyCaster.Alarm.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    x:Name="UserControl"
     d:DesignHeight="450"
     d:DesignWidth="800"
     mc:Ignorable="d">
@@ -17,8 +17,7 @@
         <DataTemplate x:Key="listBoxTemplate">
             <TextBlock
                 FontFamily="Consolas"
-                FontSize="14"
-                Foreground="{Binding LogLevelColor}"
+                FontSize="12"
                 Text="{Binding LogString}" />
         </DataTemplate>
     </UserControl.Resources>
@@ -42,25 +41,24 @@
                 Margin="5,0,0,0"
                 VerticalAlignment="Center"
                 DisplayMemberPath="LevelName"
-                ItemsSource="{Binding LogLevels, ElementName=UserControl}"
-                SelectedIndex="0"
-                SelectionChanged="LogLevelComboBox_SelectionChanged" />
+                ItemsSource="{Binding LogLevels}"
+                SelectedItem="{Binding CurrentLogLevel}" />
         </StackPanel>
         <Button
             x:Name="ClearButton"
             Grid.Column="2"
             Margin="0,5,5,5"
             VerticalAlignment="Center"
-            Click="ClearButton_Click"
+            Command="{Binding ClearCommand}"
             Content="{e:Translate Clear}" />
         <ListView
             x:Name="LogListBox"
             Grid.Row="1"
             Grid.ColumnSpan="2"
             Margin="5,0,5,5"
-            Background="Black"
+            Background="White"
             ItemTemplate="{StaticResource listBoxTemplate}"
-            ItemsSource="{Binding LogRecords, ElementName=UserControl}"
+            ItemsSource="{Binding LogRecords}"
             SelectionMode="Single">
             <ListView.ItemContainerStyle>
                 <Style TargetType="{x:Type ListViewItem}">

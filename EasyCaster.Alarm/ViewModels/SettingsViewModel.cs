@@ -12,6 +12,7 @@ using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
 
 namespace EasyCaster.Alarm.ViewModels;
@@ -32,6 +33,12 @@ public partial class SettingsViewModel : ObservableObject
         }
     }
 
+    bool isLoading = false;
+    bool isSaving = false;
+
+    [ObservableProperty]
+    bool isModified = false;
+
     [ObservableProperty]
     string helpText;
 
@@ -51,7 +58,13 @@ public partial class SettingsViewModel : ObservableObject
     string primaryChannel;
 
     [ObservableProperty]
+    string primaryChannelDescription;
+
+    [ObservableProperty]
     string testChannel;
+
+    [ObservableProperty]
+    string testChannelDescription;
 
     [ObservableProperty]
     ObservableCollection<IndexedItem<string>> excludedText = new();
@@ -74,9 +87,20 @@ public partial class SettingsViewModel : ObservableObject
     public SettingsViewModel()
     {
         configurationService = ConfigurationService.Instance;
+        configurationService.ConfigurationChanged += ConfigurationService_ConfigurationChanged;
         loggerService = LoggerService.Instance;
         UpdateHelpText();
         LoadConfiguration();
+        PropertyChanged += SettingsViewModel_PropertyChanged;
+    }
+
+    private Task ConfigurationService_ConfigurationChanged()
+    {
+        if (!isSaving)
+        {
+            LoadConfiguration();
+        }
+        return Task.CompletedTask;
     }
 
     private void ValidateConfiguration()
@@ -126,6 +150,36 @@ public partial class SettingsViewModel : ObservableObject
         }
     }
 
+    private void SetModified()
+    {
+        if (!isLoading)
+        {
+            IsModified = true;
+        }
+
+    }
+
+    private void SettingsViewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+    {
+        if (e.PropertyName!=nameof(IsModified))
+        {
+            if (e.PropertyName == nameof(Phone)
+                || e.PropertyName == nameof(Password)
+                || e.PropertyName == nameof(AutoStart)
+                || e.PropertyName == nameof(AutoConnect)
+                || e.PropertyName == nameof(PrimaryChannel)
+                || e.PropertyName == nameof(PrimaryChannelDescription)
+                || e.PropertyName == nameof(TestChannel)
+                || e.PropertyName == nameof(TestChannelDescription)
+                || e.PropertyName == nameof(WebHookUrl)
+                || e.PropertyName == nameof(SaveMessagesPath)
+                )
+            {
+                SetModified();
+            }
+        }
+    }
+
     private bool SaveConfiguration()
     {
         try
@@ -151,13 +205,16 @@ public partial class SettingsViewModel : ObservableObject
         configuration.AutoStart = this.AutoStart;
         configuration.AutoConnect = this.AutoConnect;
         configuration.PrimaryChannel = this.PrimaryChannel;
+        configuration.PrimaryChannelDescription = this.PrimaryChannelDescription;
         configuration.TestChannel = this.TestChannel;
+        configuration.TestChannelDescription = this.TestChannelDescription;
         configuration.WebHookUrl = this.WebHookUrl;
         configuration.SaveMessagesPath = this.SaveMessagesPath;
 
         foreach (var text in this.ExcludedText)
         {
-            configuration.ExcludeText.Add(text.Value);
+            if (!String.IsNullOrWhiteSpace(text.Value))
+                configuration.ExcludeText.Add(text.Value);
         }
         foreach (var item in this.Events)
         {
@@ -167,19 +224,30 @@ public partial class SettingsViewModel : ObservableObject
         {
             configuration.PeriodicTasks.Add(task.ToEasyCasterTask());
         }
-        configurationService.UpdateConfiguration(configuration);
+        try
+        {
+            isSaving = true;
+            configurationService.UpdateConfiguration(configuration);
+        }
+        finally
+        {
+            isSaving = false;
+        }
         return true;
     }
 
     private void LoadConfiguration()
     {
+        isLoading = true;
         var configuration = configurationService.Configuration;
         this.Phone = configuration.Phone;
         this.Password = configuration.Password;
         this.AutoStart = configuration.AutoStart;
         this.AutoConnect = configuration.AutoConnect;
         this.PrimaryChannel = configuration.PrimaryChannel;
+        this.PrimaryChannelDescription = configuration.PrimaryChannelDescription;
         this.TestChannel = configuration.TestChannel;
+        this.TestChannelDescription = configuration.TestChannelDescription;
         this.WebHookUrl = configuration.WebHookUrl;
         this.SaveMessagesPath = configuration.SaveMessagesPath;
         this.ExcludedText.Clear();
@@ -188,11 +256,16 @@ public partial class SettingsViewModel : ObservableObject
 
         foreach (var text in configuration.ExcludeText)
         {
-            this.ExcludedText.Add(new IndexedItem<string>(this.ExcludedText.Count + 1, text));
+            var item = new IndexedItem<string>(this.ExcludedText.Count + 1, text);
+            item.PropertyChanged += (_, _) => SetModified();
+            this.ExcludedText.Add(item);
         }
         foreach (var @event in configuration.Events)
         {
-            this.Events.Add(EventModel.FromEasyCasterEvent(@event));
+            var item = EventModel.FromEasyCasterEvent(@event);
+            item.PropertyChanged += (_, _) => SetModified();
+            item.Action.PropertyChanged += (_, _) => SetModified();
+            this.Events.Add(item);
         }
         foreach (var task in configuration.PeriodicTasks)
         {
@@ -201,8 +274,12 @@ public partial class SettingsViewModel : ObservableObject
             taskModel.StartEvent = this.Events.Where(it => it.Id == task.StartEventId).FirstOrDefault();
             taskModel.StopEvent = this.Events.Where(it => it.Id == task.StopEventId).FirstOrDefault();
             taskModel.Action = ActionModel.FromEasyCasterAction(task.Action);
+            taskModel.Action.PropertyChanged += (_, _) => SetModified();
+            taskModel.PropertyChanged += (_, _) => SetModified();
             this.Tasks.Add(taskModel);
         }
+        isLoading = false;
+        IsModified = false;
     }
 
     private void UpdateHelpText()
@@ -233,7 +310,9 @@ public partial class SettingsViewModel : ObservableObject
     private void AddTask()
     {
         var task = new TaskModel() { Action = new ActionModel(),DelayPeriod=5 };
+        task.PropertyChanged += (_, _) => SetModified();
         this.Tasks.Add(task);
+        IsModified = true;
     }
 
     [RelayCommand]
@@ -296,15 +375,26 @@ public partial class SettingsViewModel : ObservableObject
         var task = taskObject as TaskModel;
         if (task != null)
         {
+            var result = MessageBox.Show(
+                LocalizationResourceManager.Current.GetValue("ConfirmDeleteTask"),
+                LocalizationResourceManager.Current.GetValue("Confirm"),
+                MessageBoxButton.YesNo,
+                MessageBoxImage.Question
+            );
+            if (result != MessageBoxResult.Yes) return;
             this.Tasks.Remove(task);
+            IsModified = true;
         }
+        
     }
 
     [RelayCommand]
     private void AddEvent()
     {
         var @event = new EventModel() { Id = this.Events.Count + 1, Action = new ActionModel() };
+        @event.PropertyChanged += (_, _) => SetModified();
         this.Events.Add(@event);
+        IsModified = true;
     }
 
     [RelayCommand]
@@ -367,12 +457,20 @@ public partial class SettingsViewModel : ObservableObject
         var @event = eventObject as EventModel;
         if (@event != null)
         {
+            var result = MessageBox.Show(
+               LocalizationResourceManager.Current.GetValue("ConfirmDeleteMessage"),
+               LocalizationResourceManager.Current.GetValue("Confirm"),
+               MessageBoxButton.YesNo,
+               MessageBoxImage.Question
+           );
+            if (result != MessageBoxResult.Yes) return;
             this.Events.Remove(@event);
             var index = 1;
             foreach (var eventItem in this.Events)
             {
                 eventItem.Id = index++;
             }
+            IsModified = true;
         }
     }
 
@@ -380,7 +478,10 @@ public partial class SettingsViewModel : ObservableObject
     private void AddExludedText()
     {
         var lastIndex = this.ExcludedText.Count > 0 ? this.ExcludedText.Max(it => it.Index) + 1 : 0;
-        this.ExcludedText.Add(new IndexedItem<string>(lastIndex, string.Empty));
+        var item = new IndexedItem<string>(lastIndex, string.Empty);
+        item.PropertyChanged += (_, _) => SetModified();
+        this.ExcludedText.Add(item);
+        IsModified = true;
     }
 
     [RelayCommand]
@@ -388,12 +489,23 @@ public partial class SettingsViewModel : ObservableObject
     {
         var itemToDelete = this.ExcludedText.Where(it => it.Index == (int)stringIndex).FirstOrDefault();
         if (itemToDelete != null)
+        {
+            var result = MessageBox.Show(
+                   LocalizationResourceManager.Current.GetValue("ConfirmDeleteExclusion"),
+                   LocalizationResourceManager.Current.GetValue("Confirm"),
+                   MessageBoxButton.YesNo,
+                   MessageBoxImage.Question
+                );
+            if (result != MessageBoxResult.Yes) return;
             this.ExcludedText.Remove(itemToDelete);
+            IsModified = true;
+        }
     }
 
     [RelayCommand]
     private void Edit()
     {
+        IsModified = false;
         IsEditing = true;
         UpdateHelpText();
     }
@@ -405,6 +517,7 @@ public partial class SettingsViewModel : ObservableObject
         {
             if (!this.SaveConfiguration())
                 return;
+            IsModified = false;
         }
         catch (Exception ex)
         {
@@ -427,6 +540,7 @@ public partial class SettingsViewModel : ObservableObject
     {
         LoadConfiguration();
         IsEditing = false;
+        IsModified = false;
         UpdateHelpText();
     }
 }

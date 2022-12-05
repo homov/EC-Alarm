@@ -1,6 +1,7 @@
 ﻿using EasyCaster.Alarm.Core.Enums;
 using EasyCaster.Alarm.Core.Interfaces;
 using EasyCaster.Alarm.Services;
+using EasyCaster.Alarm.ViewModels;
 using EasyCaster.Alarm.Views;
 using System.Threading.Tasks;
 using System.Windows;
@@ -11,15 +12,12 @@ public partial class MainWindow : Window
 {
     public MainWindow()
     {
+        DataContext = new MainWindowViewModel();
         InitializeComponent();
     }
 
     public void Initialize()
     {
-        LoggerService.Instance.LogMessageRecieved += (message) =>
-        {
-            LogView.Log(message.Source, message.LogLevel, message.Message, message.Exception);
-        };
         var messageReader = App.Resolve<IMessageReader>();
         messageReader.ConnectionStateChanged += MessageReader_ConnectionStateChanged;
     }

@@ -9,8 +9,10 @@ public class Configuration
     public List<EasyCasterEvent> Events { get; set; } = new();
 
     public string PrimaryChannel { get; set; }
+    public string PrimaryChannelDescription { get; set; }
     
     public string TestChannel { get; set; }
+    public string TestChannelDescription { get; set; }
 
     public List<EasyCasterTask> PeriodicTasks { get; set; } = new();
 

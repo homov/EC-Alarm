@@ -119,13 +119,13 @@
     <value>Task</value>
   </data>
   <data name="StartMessage" xml:space="preserve">
-    <value>Start message</value>
+    <value>Start</value>
   </data>
   <data name="StopMessage" xml:space="preserve">
-    <value>Stop message</value>
+    <value>Stop</value>
   </data>
   <data name="ExecuteEvery" xml:space="preserve">
-    <value>Execute every</value>
+    <value>Repeea (s)</value>
   </data>
   <data name="Activate" xml:space="preserve">
     <value>Activate</value>
@@ -303,5 +303,50 @@
   </data>
   <data name="Disconnected" xml:space="preserve">
     <value>disconnected</value>
+  </data>
+  <data name="PrimaryChannelDescription" xml:space="preserve">
+    <value>Primary channel description</value>
+  </data>
+  <data name="TestChannelDescription" xml:space="preserve">
+    <value>Test channel description</value>
+  </data>
+  <data name="Confirm" xml:space="preserve">
+    <value>Confirm</value>
+  </data>
+  <data name="ConfirmDeleteMessage" xml:space="preserve">
+    <value>Do you want to delete a message?</value>
+  </data>
+  <data name="ConfirmDeleteTask" xml:space="preserve">
+    <value>Do you want to delete the schedule?</value>
+  </data>
+  <data name="ConfirmStopWork" xml:space="preserve">
+    <value>Do you want to stop message processing?</value>
+  </data>
+  <data name="ConfirmDeleteExclusion" xml:space="preserve">
+    <value>Do you want to remove the exception?</value>
+  </data>
+  <data name="ConfirmCloseApplication" xml:space="preserve">
+    <value>Do you want to exit the application?</value>
+  </data>
+  <data name="NewMessageWarning" xml:space="preserve">
+    <value>Warning! New message!</value>
+  </data>
+  <data name="PasswordIfExissts" xml:space="preserve">
+    <value>Password (if required)</value>
+  </data>
+  <data name="TelegramAccountSetup" xml:space="preserve">
+    <value>Telegram account setup</value>
+  </data>
+  <data name="PHONE_NUMBER_FLOOD" xml:space="preserve">
+    <value>Sorry, you have deleted and re-created your account too many times recently. Please wait for a few days before signing up again</value>
+  </data>
+  <data name="PHONE_NUMBER_INVALID" xml:space="preserve">
+    <value>Invalid phone number. Please try again</value>
+  </data>
+  <data name="PHONE_CODE_INVALID" xml:space="preserve">
+    <value>You have entered an invalid code</value>
+  </data>
+  <data name="PHONE_NUMBER_BANNED" xml:space="preserve">
+    <value>Phone number banned</value>
   </data>
 </root>

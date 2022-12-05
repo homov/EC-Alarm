@@ -43,6 +43,7 @@ namespace EasyCaster.Alarm
             builder.RegisterType<ScheduleHandler>().AsSelf().SingleInstance();
             builder.RegisterType<WebHookHandler>().AsSelf().SingleInstance();
             builder.RegisterType<MessageWriterService>().AsSelf().SingleInstance();
+            builder.RegisterType<ExceptionTrackService>().AsSelf().SingleInstance();
 
             return builder.Build();
         }
@@ -110,6 +111,9 @@ namespace EasyCaster.Alarm
                     mainWindow.Initialize();
                 }
 
+                ExceptionTrackService exceptionTrackService = Resolve<ExceptionTrackService>();
+                exceptionTrackService.Start();
+
                 //Autoconnect to the Telegram
                 if (ConfigurationService.Instance.Configuration.AutoConnect)
                 {
@@ -133,7 +137,21 @@ namespace EasyCaster.Alarm
 
                     MessageWriterService messageWriter = Resolve<MessageWriterService>();
                     messageWriter.Start();
+
+                    
                 });
+
+                mainWindow.Closing += (_, e) =>
+                {
+                    var result = MessageBox.Show(
+                       LocalizationResourceManager.Current.GetValue("ConfirmCloseApplication"),
+                       LocalizationResourceManager.Current.GetValue("Confirm"),
+                       MessageBoxButton.YesNo,
+                       MessageBoxImage.Question
+                    );
+                    if (result == MessageBoxResult.Yes) return;
+                    e.Cancel = true;
+                };
 
                 mainWindow.Closed += (_, _) =>
                 {

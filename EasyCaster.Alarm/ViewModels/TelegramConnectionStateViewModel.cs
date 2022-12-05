@@ -3,13 +3,15 @@ using CommunityToolkit.Mvvm.Input;
 using EasyCaster.Alarm.Core.Enums;
 using EasyCaster.Alarm.Core.Interfaces;
 using EasyCaster.Alarm.Helpers;
+using EasyCaster.Alarm.Services;
+using EasyCaster.Alarm.Views;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
 
 namespace EasyCaster.Alarm.ViewModels;
 
-public partial class TelegramConnectionStateViewModel: ObservableObject
+public partial class TelegramConnectionStateViewModel : ObservableObject
 {
     [ObservableProperty]
     string connectionStateText;
@@ -69,7 +71,7 @@ public partial class TelegramConnectionStateViewModel: ObservableObject
 
     private string GetConnectionStateText(ConnectionState newState)
     {
-        switch( newState)
+        switch (newState)
         {
             case ConnectionState.Connected:
                 return LocalizationResourceManager.Current.GetValue("Connected");
@@ -85,13 +87,34 @@ public partial class TelegramConnectionStateViewModel: ObservableObject
     [RelayCommand]
     private void ConnectOrDisconnect()
     {
-        if (messageReader.ConnectionState == ConnectionState.Connected 
+        if (messageReader.ConnectionState == ConnectionState.Connected
             || messageReader.ConnectionState == ConnectionState.Connecting)
         {
+            if (messageReader.ConnectionState == ConnectionState.Connected)
+            {
+                var result = MessageBox.Show(
+                   LocalizationResourceManager.Current.GetValue("ConfirmStopWork"),
+                   LocalizationResourceManager.Current.GetValue("Confirm"),
+                   MessageBoxButton.YesNo,
+                   MessageBoxImage.Question
+                );
+                if (result != MessageBoxResult.Yes) return;
+            }
             messageReader.Stop();
         }
         else if (messageReader.ConnectionState == ConnectionState.Disconnected)
         {
+            if (string.IsNullOrWhiteSpace( ConfigurationService.Instance.Configuration.Phone) )
+            {
+                var dialog = new TelegramAccountDialog();
+                dialog.Owner = Application.Current.MainWindow;
+                if (! (bool)dialog.ShowDialog() )
+                    return;
+                var configuration = ConfigurationService.Instance.Configuration;
+                configuration.Phone = dialog.ViewModel.Phone;
+                configuration.Password = dialog.ViewModel.Password;
+                //ConfigurationService.Instance.UpdateConfiguration(configuration);
+            }
             messageReader.Start();
         }
     }

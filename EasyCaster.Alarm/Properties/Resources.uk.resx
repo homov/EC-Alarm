@@ -139,13 +139,13 @@
     <value>Завдання</value>
   </data>
   <data name="StartMessage" xml:space="preserve">
-    <value>Почати, якщо отримано</value>
+    <value>Почати</value>
   </data>
   <data name="StopMessage" xml:space="preserve">
-    <value>Зупинити, якщо отримано</value>
+    <value>Зупинити</value>
   </data>
   <data name="ExecuteEvery" xml:space="preserve">
-    <value>Повторювати кожні (c)</value>
+    <value>Повторювати (c)</value>
   </data>
   <data name="Activate" xml:space="preserve">
     <value>Активувати</value>
@@ -323,5 +323,50 @@
   </data>
   <data name="Disconnected" xml:space="preserve">
     <value>відключений</value>
+  </data>
+  <data name="PrimaryChannelDescription" xml:space="preserve">
+    <value>Опис каналу для пошуку</value>
+  </data>
+  <data name="TestChannelDescription" xml:space="preserve">
+    <value>Опис каналу для тестів</value>
+  </data>
+  <data name="Confirm" xml:space="preserve">
+    <value>Підтвердіть</value>
+  </data>
+  <data name="ConfirmDeleteMessage" xml:space="preserve">
+    <value>Ви бажаєте видалити повідомлення?</value>
+  </data>
+  <data name="ConfirmDeleteTask" xml:space="preserve">
+    <value>Ви бажаєте видалити розклад?</value>
+  </data>
+  <data name="ConfirmStopWork" xml:space="preserve">
+    <value>Ви бажаєте зупинити обробку повідомлень?</value>
+  </data>
+  <data name="ConfirmDeleteExclusion" xml:space="preserve">
+    <value>Ви бажаєте видалити виняток?</value>
+  </data>
+  <data name="ConfirmCloseApplication" xml:space="preserve">
+    <value>Ви бажаєте завершити роботу з програмою?</value>
+  </data>
+  <data name="NewMessageWarning" xml:space="preserve">
+    <value>Увага! Нове повідомлення!</value>
+  </data>
+  <data name="PasswordIfExissts" xml:space="preserve">
+    <value>Пароль (якщо потрібно)</value>
+  </data>
+  <data name="TelegramAccountSetup" xml:space="preserve">
+    <value>Налаштування облікового запису Telegram</value>
+  </data>
+  <data name="PHONE_NUMBER_FLOOD" xml:space="preserve">
+    <value>Вибачте, останнім часом ви забагато разів видаляли та заново створювали свій обліковий запис. Будь ласка, зачекайте кілька днів, перш ніж зареєструватися знову</value>
+  </data>
+  <data name="PHONE_NUMBER_INVALID" xml:space="preserve">
+    <value>Невірний номер телефону. Будь ласка спробуйте ще раз</value>
+  </data>
+  <data name="PHONE_CODE_INVALID" xml:space="preserve">
+    <value>Ви ввели недійсний код</value>
+  </data>
+  <data name="PHONE_NUMBER_BANNED" xml:space="preserve">
+    <value>Номер телефону заборонено (banned)</value>
   </data>
 </root>
