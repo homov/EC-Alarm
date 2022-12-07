@@ -7,15 +7,23 @@
     <UseWPF>true</UseWPF>
     <Version>2.0</Version>
     <Company>live-tv</Company>
-    <Copyright>Copyright ©  2022</Copyright>
-    <AssemblyVersion>2.0.0.6</AssemblyVersion>
-    <FileVersion>2.0.0.6</FileVersion>
+    <Copyright>Copyright © 2022</Copyright>
+    <AssemblyVersion>2.0.0.8</AssemblyVersion>
+    <FileVersion>2.0.0.8</FileVersion>
     <SignAssembly>false</SignAssembly>
     <AssemblyName>EasyCaster.Alarm</AssemblyName>
     <Authors>live-tv</Authors>
     <ApplicationIcon>Resources\icon.ico</ApplicationIcon>
     <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Resources\Easycaster_logo.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\Easycaster_logo.png" />
+  </ItemGroup>
 
   <ItemGroup>
     <Resource Include="Resources\icon.ico" />

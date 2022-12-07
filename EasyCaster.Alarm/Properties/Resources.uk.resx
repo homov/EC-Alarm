@@ -369,4 +369,7 @@
   <data name="PHONE_NUMBER_BANNED" xml:space="preserve">
     <value>Номер телефону заборонено (banned)</value>
   </data>
+  <data name="FLOOD_WAIT" xml:space="preserve">
+    <value>Забагато спроб, спробуйте пізніше.</value>
+  </data>
 </root>

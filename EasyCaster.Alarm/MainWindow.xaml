@@ -17,62 +17,69 @@
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
     </Window.Resources>
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
+    <DockPanel>
+        <Menu Padding="10" DockPanel.Dock="Top">
+            <MenuItem Command="{Binding AboutCommand}" Header="Про нас" />
+            <MenuItem Command="{Binding FeedbackCommand}" Header="Зворотній звязок" />
+            <MenuItem Command="{Binding HelpCommand}" Header="Довідка" />
+        </Menu>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
 
-        <v:TelegramConnectionStateView Margin="10,10,10,0" Padding="10" />
+            <v:TelegramConnectionStateView Margin="10,10,10,0" Padding="10" />
 
-        <TabControl
-            x:Name="TabControl"
-            Grid.Row="1"
-            Margin="10"
-            HorizontalAlignment="Stretch"
-            VerticalAlignment="Stretch">
-            <TabItem Header="{e:Translate Settings}">
-                <v:SettingsView />
-            </TabItem>
-            <TabItem Header="{e:Translate MessageHistory}">
-                <v:MessageHistoryView />
-            </TabItem>
-            <TabItem Header="{e:Translate ApplicationLog}">
-                <v:LogView />
-            </TabItem>
-        </TabControl>
+            <TabControl
+                x:Name="TabControl"
+                Grid.Row="1"
+                Margin="10"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch">
+                <TabItem Header="{e:Translate Settings}">
+                    <v:SettingsView />
+                </TabItem>
+                <TabItem Header="{e:Translate MessageHistory}">
+                    <v:MessageHistoryView />
+                </TabItem>
+                <TabItem Header="{e:Translate ApplicationLog}">
+                    <v:LogView />
+                </TabItem>
+            </TabControl>
 
-        <TextBlock
-            Grid.Row="1"
-            Margin="0,4,10,0"
-            HorizontalAlignment="Right"
-            VerticalAlignment="Top"
-            FontSize="16"
-            FontWeight="Bold"
-            Foreground="Red"
-            Text="{e:Translate NewMessageWarning}"
-            Visibility="{Binding IsMessageRecived, Converter={StaticResource BooleanToVisibilityConverter}}">
-            <TextBlock.Resources>
-                <Style TargetType="{x:Type TextBlock}">
-                    <Style.Triggers>
-                        <Trigger Property="Visibility" Value="Visible">
-                            <Trigger.EnterActions>
-                                <BeginStoryboard>
-                                    <Storyboard>
-                                        <DoubleAnimation
-                                            AutoReverse="True"
-                                            RepeatBehavior="Forever"
-                                            Storyboard.TargetProperty="(TextBlock.Opacity)"
-                                            From="1"
-                                            To="0.2"
-                                            Duration="0:0:0.5" />
-                                    </Storyboard>
-                                </BeginStoryboard>
-                            </Trigger.EnterActions>
-                        </Trigger>
-                    </Style.Triggers>
-                </Style>
-            </TextBlock.Resources>
-        </TextBlock>
-    </Grid>
+            <TextBlock
+                Grid.Row="1"
+                Margin="0,4,10,0"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                FontSize="16"
+                FontWeight="Bold"
+                Foreground="Red"
+                Text="{e:Translate NewMessageWarning}"
+                Visibility="{Binding IsMessageRecived, Converter={StaticResource BooleanToVisibilityConverter}}">
+                <TextBlock.Resources>
+                    <Style TargetType="{x:Type TextBlock}">
+                        <Style.Triggers>
+                            <Trigger Property="Visibility" Value="Visible">
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation
+                                                AutoReverse="True"
+                                                RepeatBehavior="Forever"
+                                                Storyboard.TargetProperty="(TextBlock.Opacity)"
+                                                From="1"
+                                                To="0.2"
+                                                Duration="0:0:0.5" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBlock.Resources>
+            </TextBlock>
+        </Grid>
+    </DockPanel>
 </Window>

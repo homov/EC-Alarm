@@ -340,6 +340,15 @@ namespace EasyCaster.Alarm.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Too many attempts, please try again later.
+        /// </summary>
+        internal static string FLOOD_WAIT {
+            get {
+                return ResourceManager.GetString("FLOOD_WAIT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Information.
         /// </summary>
         internal static string Information {

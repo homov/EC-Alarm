@@ -32,6 +32,10 @@ namespace EasyCaster.Alarm.Services
                 case "PHONE_NUMBER_BANNED":
                     return Properties.Resources.PHONE_NUMBER_BANNED;
                 default:
+                    if (rpcEception.Message.StartsWith("FLOOD_WAIT"))
+                    {
+                        return Properties.Resources.FLOOD_WAIT;
+                    }
                     return $"Telegram reports error:\n\n{rpcEception.Message}";
             }
         }

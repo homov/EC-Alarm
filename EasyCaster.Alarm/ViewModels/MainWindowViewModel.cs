@@ -4,7 +4,8 @@ using System;
 using System.Threading.Tasks;
 using System.Windows.Threading;
 using System.Windows;
-
+using CommunityToolkit.Mvvm.Input;
+using EasyCaster.Alarm.Views;
 
 namespace EasyCaster.Alarm.ViewModels;
 
@@ -35,5 +36,29 @@ public partial class MainWindowViewModel: ObservableObject
         dispatcherTimer.Stop();
         dispatcherTimer.Start();
         return Task.CompletedTask;
+    }
+
+    [RelayCommand]
+    void About()
+    {
+        var dlg = new AboutDialog();
+        dlg.Owner = Application.Current.MainWindow;
+        dlg.ShowDialog();
+    }
+
+    [RelayCommand]
+    void Feedback()
+    {
+        var dlg = new FeedbackDialog();
+        dlg.Owner = Application.Current.MainWindow;
+        dlg.ShowDialog();
+    }
+
+
+    [RelayCommand]
+    void Help()
+    {
+        var dlg = new HelpDialog();
+        dlg.ShowDialog();
     }
 }

@@ -1,0 +1,80 @@
+﻿<Window
+    x:Class="EasyCaster.Alarm.Views.HelpDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="Довідка"
+    Width="800"
+    Height="600"
+    WindowStartupLocation="CenterScreen"
+    WindowStyle="ToolWindow"
+    mc:Ignorable="d">
+    <Window.Resources>
+        <Style TargetType="{x:Type Paragraph}">
+            <Setter Property="FontFamily" Value="Verdana" />
+            <Setter Property="FontSize" Value="12" />
+        </Style>
+    </Window.Resources>
+    <FlowDocumentScrollViewer>
+        <FlowDocument>
+            <Paragraph FontWeight="Bold">Загальні відомості</Paragraph>
+            <Paragraph>Програма  Easycaster Alert призначена для автоматизації виведення в ефір телеканала або радіостанції тривожних повідомлень цивільної оборони з офіційних телеграм каналів та груп у вашому регіоні.</Paragraph>
+            <Paragraph>Принцип дії – програма читає повідомлення у вибраному телеграмі каналі і за наявності ключових фраз емулює натискання гарячих клавіш, які запускають необхідні дії у відеомікшері або в плейауті.</Paragraph>
+            <List MarkerStyle="Box">
+                <ListItem>
+                    <Paragraph>
+                        Програма встановлюється на сервері із відеомікшером або плейаутом.
+                    </Paragraph>
+                </ListItem>
+                <ListItem>
+                    <Paragraph>
+                        ПЗ сумісне з Windows 7 та новіше
+                    </Paragraph>
+                </ListItem>
+            </List>
+            <Paragraph>Для початку роботи в Easycaster Alert необхідно авторизуватись під своїм обліковим записом у Телеграмі.</Paragraph>
+            <Paragraph FontWeight="Bold">Налаштування програми</Paragraph>
+            <Paragraph>Статус – відображає стан підключення програми до вашого Telegram облікового запису. Зелений – підключення стабільне, червоний – підключення відсутнє/перервалося.</Paragraph>
+            <Paragraph>Редагувати/зберегти - зміна параметрів програми доступна лише після натискання на кнопку "Редагувати". Щоб зберегти настройки, натисніть кнопку "Зберегти".</Paragraph>
+            <Paragraph>Автостарт програми – програма EasyCaster Alarm автоматично запускатиметься при завантаженні операційної системи.</Paragraph>
+            <Paragraph>Автоматичний вхід у Telegram – при установці програма автоматично авторизуватиметься в Telegram, за вказаними раніше даними у формі входу.</Paragraph>
+            <Paragraph>Основний канал – телеграм канал, з якого програма отримуватиме потрібні повідомлення. Введіть назву каналу (групи) та посилання на нього у форматі https://t.me/....</Paragraph>
+            <Paragraph FontWeight="Bold">Увага!</Paragraph>
+            <List MarkerStyle="Decimal">
+                <ListItem>
+                    <Paragraph>
+                        Посилання на канал (группу) повинно бути постійним, а не динамичним
+                    </Paragraph>
+                </ListItem>
+                <ListItem>
+                    <Paragraph>
+                        Ви повинні бути підписані на цей канал
+                    </Paragraph>
+                </ListItem>
+            </List>
+            <Paragraph>Тестовий канал – додатковий канал або група, де ви можете відправити необхідні повідомлення для перевірки системи.</Paragraph>
+            <Paragraph>Знайти текст - Активувати - Натиснути клавішу – налаштування логіки роботи програми. Введіть ключове слово або фразу, виберіть потрібну гарячу клавішу та програму, для якої буде емульоване натискання клавіши.</Paragraph>
+            <Paragraph>Виконати – вказує програму, яка запуститься при спрацюванні події. Запуск програми може мати розширення .bat .cmd .exe</Paragraph>
+            <Paragraph>Тестова кнопка – кнопка для перевірки виведення повідомлень за кожним ключовим словом під час запуску та налагодження програми.</Paragraph>
+            <Paragraph>Винятки – у вашому телеграм каналі можуть бути повідомлення, які містять ключові фрази, але не є повідомленнями про подію. Для запобігання помилковим спрацьовуванням додайте текст таких повідомлень у виключення.</Paragraph>
+            <Paragraph>Необхідні програми на момент старту Easycaster Alert  вже повинні працювати</Paragraph>
+            <Paragraph>Запис повідомлень – Вказує папку для запису останніх повідомлень, знайдених за умовою. Записується в N.txt, де N - індекс ключової фрази.</Paragraph>
+            <Paragraph>Webhook – надсилання HTTP POST повідомлень на вказану адресу при кожному спрацюванні за подією Дані надсилаються у форматі JSON.</Paragraph>
+            <Paragraph>Приклад повідомлення:</Paragraph>
+            <Paragraph>
+                {<LineBreak />
+                “id”: 0,<LineBreak />
+                “message”: “Test message”,<LineBreak />
+                “targetMessage”: “Test”,<LineBreak />
+                “dateTime”: “2022-05-05 12:52:29”<LineBreak />
+                }</Paragraph>
+            <Paragraph FontWeight="Bold">Історія повідомлень</Paragraph>
+            <Paragraph>Інформація про останні спрацювування програми за ключовими словами.</Paragraph>
+            <Paragraph FontWeight="Bold">Журнал роботи</Paragraph>
+            <Paragraph>Технічна інформація про роботу програми.</Paragraph>
+
+
+        </FlowDocument>
+    </FlowDocumentScrollViewer>
+</Window>

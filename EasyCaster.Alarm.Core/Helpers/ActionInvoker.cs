@@ -89,14 +89,16 @@ public static class ActionInvoker
                             BringWindowToTop(windowHandle);
                             ShowWindow(windowHandle, SW_SHOW);
                         });
-                        if (GetForegroundWindow() == windowHandle)
-                        {
-                            simulator.Keyboard.ModifiedKeyStroke(modifiers, keyCode);
-                        }
-                        else
-                        {
-                            throw new Exception($"Unable to activate main window for process {easyCasterAction.ApplicationName}");
-                        }
+                        simulator.Keyboard.ModifiedKeyStroke(modifiers, keyCode);
+
+                        //if (GetForegroundWindow() == windowHandle)
+                        //{
+                        //    simulator.Keyboard.ModifiedKeyStroke(modifiers, keyCode);
+                        //}
+                        //else
+                        //{
+                        //    throw new Exception($"Unable to activate main window for process {easyCasterAction.ApplicationName}");
+                        //}
 
                     }
                 }

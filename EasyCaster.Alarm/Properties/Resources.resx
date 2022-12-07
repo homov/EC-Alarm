@@ -349,4 +349,7 @@
   <data name="PHONE_NUMBER_BANNED" xml:space="preserve">
     <value>Phone number banned</value>
   </data>
+  <data name="FLOOD_WAIT" xml:space="preserve">
+    <value>Too many attempts, please try again later</value>
+  </data>
 </root>

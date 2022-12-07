@@ -2,10 +2,9 @@
 using EasyCaster.Alarm.Core.Exceptions;
 using EasyCaster.Alarm.Core.Interfaces;
 using EasyCaster.Alarm.Core.Models;
+using System.Buffers.Binary;
 using System.IO;
 using System.Text.Json;
-using System.Text.RegularExpressions;
-using System.Windows.Shapes;
 using TL;
 
 namespace EasyCaster.Alarm.Core.Services;
@@ -201,7 +200,7 @@ public class TelegramMessageReader : IMessageReader
                         }
                     }
                 }
-                await Task.Delay(5000, cancellationToken);
+                await Task.Delay(15000, cancellationToken);
             }
         }
         finally
@@ -253,7 +252,7 @@ public class TelegramMessageReader : IMessageReader
             {
                 
                 WTelegram.Helpers.Log = (level, message) => logger.Log(LogSource, level, message);
-                telegramClient = new WTelegram.Client(GetTelegramConfig);
+                telegramClient = new WTelegram.Client(GetTelegramConfig, new SessionStore(configuration.GetTelegramValue("session_pathname") ));
                 telegramClient.OnUpdate += HandleUpdate;
                 
                 try
@@ -324,4 +323,40 @@ public class TelegramMessageReader : IMessageReader
             SetConnectionState(ConnectionState.Disconnected);
         }
     }
+
+    internal class SessionStore : FileStream
+    {
+        public override long Length { get; }
+        public override long Position { get => base.Position; set { } }
+        public override void SetLength(long value) { }
+        private readonly byte[] _header = new byte[8];
+        private int _nextPosition = 8;
+
+        public SessionStore(string pathname)
+            : base(pathname, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.None, 1) // no in-app buffering
+        {
+            if (base.Read(_header, 0, 8) == 8)
+            {
+                var position = BinaryPrimitives.ReadInt32LittleEndian(_header);
+                var length = BinaryPrimitives.ReadInt32LittleEndian(_header.AsSpan(4));
+                base.Position = position;
+                Length = length;
+                _nextPosition = position + length;
+            }
+        }
+
+        public override void Write(byte[] buffer, int offset, int count)
+        {
+            if (_nextPosition > count * 3) _nextPosition = 8;
+            base.Position = _nextPosition;
+            base.Write(buffer, offset, count);
+            BinaryPrimitives.WriteInt32LittleEndian(_header, _nextPosition);
+            BinaryPrimitives.WriteInt32LittleEndian(_header.AsSpan(4), count);
+            _nextPosition += count;
+            base.Position = 0;
+            base.Write(_header, 0, 8);
+            base.Flush(true);
+        }
+    }
+
 }
