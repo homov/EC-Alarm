@@ -4,6 +4,7 @@ using EasyCaster.Alarm.Core.Interfaces;
 using EasyCaster.Alarm.Core.Models;
 using System.Buffers.Binary;
 using System.IO;
+using System.Net.NetworkInformation;
 using System.Text.Json;
 using TL;
 
@@ -155,8 +156,29 @@ public class TelegramMessageReader : IMessageReader
         }
     }
 
+    private bool isInternetConnectionFound()
+    {
+        try
+        {
+            Ping myPing = new Ping();
+            String host = "8.8.8.8";
+            byte[] buffer = new byte[32];
+            int timeout = 1000;
+            PingOptions pingOptions = new PingOptions();
+            PingReply reply = myPing.Send(host, timeout, buffer, pingOptions);
+            return (reply.Status == IPStatus.Success);
+        }
+        catch (Exception)
+        {
+            return false;
+        }
+    }
+
     private async Task WatchDog(CancellationToken cancellationToken)
     {
+        bool firstConnect = true;
+        await Task.Delay(2000);
+
         try
         {
             watchDogRunning = true;
@@ -171,36 +193,49 @@ public class TelegramMessageReader : IMessageReader
                     if (telegramClient.Disconnected || telegramClient.User == null)
                     {
                         SetConnectionState(ConnectionState.Connecting);
-                        logger.Log(LogSource, Constants.LogLevelInformation, "Connection lost. Reconnecting...");
-
-                        try
+                        logger.Log(LogSource, Constants.LogLevelInformation, "Reconnecting...");
+                        if (isInternetConnectionFound())
                         {
-                            telegramClient.Reset(false, true);
-                            if (cancellationToken.IsCancellationRequested)
-                                break;
-                            await telegramClient.LoginUserIfNeeded();
-                            if (cancellationToken.IsCancellationRequested)
-                                break;
-                            if (!telegramClient.Disconnected)
+
+                            try
                             {
-                                SetConnectionState(ConnectionState.Connected);
-                                logger.Log(LogSource, Constants.LogLevelInformation, "Reconnected");
+                                if (!firstConnect)
+                                {
+                                    telegramClient.Reset(false, true);
+                                    if (cancellationToken.IsCancellationRequested)
+                                        break;
+                                }
+
+                                await telegramClient.LoginUserIfNeeded();
+                                firstConnect = false;
+
+                                if (cancellationToken.IsCancellationRequested)
+                                    break;
+                                if (!telegramClient.Disconnected)
+                                {
+                                    SetConnectionState(ConnectionState.Connected);
+                                    logger.Log(LogSource, Constants.LogLevelInformation, "Reconnected");
+                                }
+                                else
+                                {
+                                    logger.Log(LogSource, Constants.LogLevelInformation, "Reconnection failed");
+                                }
                             }
-                            else
+                            catch (Exception exeception)
                             {
-                                logger.Log(LogSource, Constants.LogLevelInformation, "Reconnection failed");
+                                logger.Log(LogSource,
+                                    Constants.LogLevelError,
+                                    $"Error while reconnecting {exeception.Message}",
+                                    exeception);
                             }
                         }
-                        catch (Exception exeception)
+                        else
                         {
-                            logger.Log(LogSource,
-                                Constants.LogLevelError,
-                                $"Error while reconnecting {exeception.Message}",
-                                exeception);
+                            logger.Log(LogSource, Constants.LogLevelInformation, "Not connected to internet");
                         }
                     }
                 }
-                await Task.Delay(15000, cancellationToken);
+                await Task.Delay(6000, cancellationToken);
             }
         }
         finally
@@ -254,26 +289,29 @@ public class TelegramMessageReader : IMessageReader
                 WTelegram.Helpers.Log = (level, message) => logger.Log(LogSource, level, message);
                 telegramClient = new WTelegram.Client(GetTelegramConfig, new SessionStore(configuration.GetTelegramValue("session_pathname") ));
                 telegramClient.OnUpdate += HandleUpdate;
-                
-                try
-                {
-                    await telegramClient.LoginUserIfNeeded();
-                }
-                catch (LoginSequenceCanceledException e)
-                {
-                    await Stop();
-                    isCanceled = true;
-                }
 
-                catch (Exception)
-                {
+                tokenSource = new CancellationTokenSource();
+                WatchDog(tokenSource.Token);
 
-                }
-                if (!isCanceled)
-                {
-                    tokenSource = new CancellationTokenSource();
-                    WatchDog(tokenSource.Token);
-                }
+                //try
+                //{
+                //    await telegramClient.LoginUserIfNeeded();
+                //}
+                //catch (LoginSequenceCanceledException e)
+                //{
+                //    await Stop();
+                //    isCanceled = true;
+                //}
+
+                //catch (Exception)
+                //{
+
+                //}
+                //if (!isCanceled)
+                //{
+                //    tokenSource = new CancellationTokenSource();
+                //    WatchDog(tokenSource.Token);
+                //}
             }
         }
         catch (LoginSequenceCanceledException)
