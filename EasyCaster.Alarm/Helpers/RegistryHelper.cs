@@ -29,7 +29,7 @@ public static class RegistryHelper
         {
             if (!autoStart)
             {
-                if ( registryKey.GetValue(RegistryValueName, null) == null )
+                if ( registryKey.GetValue(RegistryValueName, null) != null )
                     registryKey.DeleteValue(RegistryValueName);
             }
             else
